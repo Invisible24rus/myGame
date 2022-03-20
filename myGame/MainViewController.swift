@@ -86,7 +86,7 @@ private extension MainViewController {
     @objc func startGame() {
         let gameVC = GameViewController()
         gameVC.modalPresentationStyle = .fullScreen
-        present(gameVC, animated: true, completion: nil)
+        present(gameVC, animated: false, completion: nil)
     }
     
     

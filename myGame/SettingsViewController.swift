@@ -14,13 +14,12 @@ class SettingsViewController: UIViewController {
     private let levelNameLabel = UILabel()
     private let userNameTextField = UITextField()
     private let saveSettingsButton = UIButton(type: .system)
-    private let levelSegmentedControl = UISegmentedControl(items: ["Космос", "Лето"])
+    private let levelSegmentedControl = UISegmentedControl(items: ["Лето", "Космос"])
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        setupText()
     }
     
 
@@ -37,6 +36,7 @@ private extension SettingsViewController {
         title = "Настройки"
         
         backgroundImage.contentMode = .scaleAspectFill
+        
         view.addSubviewsForAutoLayout([backgroundImage,profileNameLabel, userNameTextField, saveSettingsButton, levelNameLabel, levelSegmentedControl])
         
         NSLayoutConstraint.activate([
@@ -47,19 +47,12 @@ private extension SettingsViewController {
         ])
         
         profileNameLabel.text = "Имя профиля"
+        profileNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
         profileNameLabel.textColor = .black
         
         NSLayoutConstraint.activate([
             profileNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            profileNameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
-        ])
-        
-        levelNameLabel.text = "Уровень"
-        levelNameLabel.textColor = .black
-        
-        NSLayoutConstraint.activate([
-            levelNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            levelNameLabel.topAnchor.constraint(equalTo: userNameTextField.bottomAnchor, constant: 50),
+            profileNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
         ])
         
         userNameTextField.backgroundColor = .white
@@ -74,6 +67,24 @@ private extension SettingsViewController {
             userNameTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
         
+        levelNameLabel.text = "Уровень"
+        levelNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
+        levelNameLabel.textColor = .black
+        
+        NSLayoutConstraint.activate([
+            levelNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            levelNameLabel.topAnchor.constraint(equalTo: userNameTextField.bottomAnchor, constant: 20),
+        ])
+        
+        levelSegmentedControl.backgroundColor = .white
+        levelSegmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: UserDefaultsKeys.level)
+        
+        NSLayoutConstraint.activate([
+            levelSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            levelSegmentedControl.topAnchor.constraint(equalTo: levelNameLabel.bottomAnchor, constant: 10),
+
+        ])
+
         saveSettingsButton.setTitle("Применить", for: .normal)
         saveSettingsButton.setTitleColor(.white, for: .normal)
         saveSettingsButton.backgroundColor = .systemBlue
@@ -82,33 +93,25 @@ private extension SettingsViewController {
         
         NSLayoutConstraint.activate([
             saveSettingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            saveSettingsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            saveSettingsButton.topAnchor.constraint(equalTo: levelSegmentedControl.bottomAnchor, constant: 20),
             saveSettingsButton.widthAnchor.constraint(equalToConstant: 120),
             saveSettingsButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        levelSegmentedControl.backgroundColor = .white
-//        Вот тут вопрос, если мы делаем выбор уровня через сегмент. То при первом запуске игры, должен же быть уже выбран какой то сегмент по умолчанию, и только если игрок пошел в настройки перевыбрал его, мы уже строчкой ниже перезаписываем. Как это должно выглядеть в правильном исполнении?
-        levelSegmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: UserDefaultsKeys.level)
         
-        NSLayoutConstraint.activate([
-            levelSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            levelSegmentedControl.topAnchor.constraint(equalTo: levelNameLabel.bottomAnchor, constant: 10),
+        
+    }
 
-        ])
-        
-    }
-// Не уверен, что через массив это правильно делать, но для каждого лейбла не хотелось создавать одну и ту же конструкцию
-    func setupText() {
-        let labelArray = [profileNameLabel, levelNameLabel]
-        
-        for label in labelArray {
-            let attributedText = NSMutableAttributedString(string: label.text ?? "",
-                                                                attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold)
-                                                               ])
-            label.attributedText = attributedText
-        }
-    }
+//    func setupText() {
+//        let labelArray = [profileNameLabel, levelNameLabel]
+//
+//        for label in labelArray {
+//            let attributedText = NSMutableAttributedString(string: label.text ?? "",
+//                                                                attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold)
+//                                                               ])
+//            label.attributedText = attributedText
+//        }
+//    }
     
     @objc func saveSettings() {
         UserDefaults.standard.set(userNameTextField.text, forKey: UserDefaultsKeys.name)
