@@ -216,7 +216,7 @@ private extension GameViewController {
         } completion: { _ in
             if obtacle.frame.maxY == self.view.frame.maxY + obtacle.frame.size.width {
                 self.count += 1
-//                Почему то игра сходит с ума если обновлять каунт.
+//                Почему то игра сходит с ума если обновлять каунт. 
 //                gameScoreLabel.text = "\(count)"
             }
         }
