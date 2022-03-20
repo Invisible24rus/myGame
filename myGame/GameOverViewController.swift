@@ -78,8 +78,8 @@ private extension GameOverViewController {
     @objc func closeGame() {
         let someVC = MainViewController()
         someVC.modalPresentationStyle = .fullScreen
+//        Ты говорил что нельзя презентиться, чтобы бесконечной цепочки не было. А как перейти с этого экрана на 1ый, при этом удалив 3ий?
         present(someVC, animated: false, completion: nil)
-        
         
     }
 }

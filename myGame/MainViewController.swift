@@ -18,6 +18,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        dismiss(animated: false, completion: nil)
     }
 
 
