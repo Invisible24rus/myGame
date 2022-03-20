@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1113C18B27E7CAD400FF006E /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113C18A27E7CAD400FF006E /* GameOverViewController.swift */; };
 		112F5289274433AC0074F55A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112F5288274433AC0074F55A /* AppDelegate.swift */; };
 		112F528B274433AC0074F55A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112F528A274433AC0074F55A /* SceneDelegate.swift */; };
 		112F528D274433AC0074F55A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112F528C274433AC0074F55A /* MainViewController.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1113C18A27E7CAD400FF006E /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		112F5285274433AC0074F55A /* myGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		112F5288274433AC0074F55A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		112F528A274433AC0074F55A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				112F528C274433AC0074F55A /* MainViewController.swift */,
 				11AEF8B4274A6F5D002ED50E /* SettingsViewController.swift */,
 				11AEF8B6274A83CA002ED50E /* GameViewController.swift */,
+				1113C18A27E7CAD400FF006E /* GameOverViewController.swift */,
 				112F528E274433AC0074F55A /* Main.storyboard */,
 			);
 			path = myGame;
@@ -290,6 +293,7 @@
 				112F52BB274438B00074F55A /* UIView + Constraints.swift in Sources */,
 				112F5289274433AC0074F55A /* AppDelegate.swift in Sources */,
 				11AEF8B5274A6F5D002ED50E /* SettingsViewController.swift in Sources */,
+				1113C18B27E7CAD400FF006E /* GameOverViewController.swift in Sources */,
 				11AEF8B9274A9ACC002ED50E /* UserSettings.swift in Sources */,
 				11AEF8B7274A83CA002ED50E /* GameViewController.swift in Sources */,
 				112F528B274433AC0074F55A /* SceneDelegate.swift in Sources */,

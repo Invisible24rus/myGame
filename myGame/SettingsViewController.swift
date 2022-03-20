@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
     private let levelNameLabel = UILabel()
     private let userNameTextField = UITextField()
     private let saveSettingsButton = UIButton(type: .system)
-    private let levelSegmentedControl = UISegmentedControl(items: ["Лето", "Космос"])
+    private let levelSegmentedControl = UISegmentedControl(items: ["Лето", "Космос", "Зима"])
 
 
     override func viewDidLoad() {
@@ -102,17 +102,7 @@ private extension SettingsViewController {
         
     }
 
-//    func setupText() {
-//        let labelArray = [profileNameLabel, levelNameLabel]
-//
-//        for label in labelArray {
-//            let attributedText = NSMutableAttributedString(string: label.text ?? "",
-//                                                                attributes: [.font: UIFont.systemFont(ofSize: 16, weight: .bold)
-//                                                               ])
-//            label.attributedText = attributedText
-//        }
-//    }
-    
+
     @objc func saveSettings() {
         UserDefaults.standard.set(userNameTextField.text, forKey: UserDefaultsKeys.name)
         UserDefaults.standard.set(levelSegmentedControl.selectedSegmentIndex, forKey: UserDefaultsKeys.level)

@@ -12,8 +12,9 @@ class GameViewController: UIViewController {
     private var levelImageName = ""
     private var backgroundImage = UIImageView()
     private var backgroundImage2 = UIImageView()
+    private var gameScoreLabel = UILabel()
     
-    private var obstacleImage1 = UIImageView(image: UIImage(named: "obstacle"))
+    private var obstacleImage = UIImageView(image: UIImage(named: "obstacle"))
  
     private let carImage = UIImageView(image: UIImage(named: "purpleCar"))
     private let closeGameButton = UIButton(type: .system)
@@ -23,8 +24,8 @@ class GameViewController: UIViewController {
     private var gameTimer2: Timer?
     
     lazy var minX = view.frame.minX
-    lazy var midX = view.frame.midX - obstacleImage1.frame.size.height / 2
-    lazy var maxX = view.frame.maxX - obstacleImage1.frame.size.height
+    lazy var midX = view.frame.midX - obstacleImage.frame.size.height / 2
+    lazy var maxX = view.frame.maxX - obstacleImage.frame.size.height
     private lazy var arrayX = [minX, midX, maxX]
     
     
@@ -35,13 +36,12 @@ class GameViewController: UIViewController {
         
         setupViews()
         gameTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(generateAnimObstacle), userInfo: nil, repeats: true)
-        gameTimer2 = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(searchContact), userInfo: nil, repeats: true)
+        gameTimer2 = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(searchContact), userInfo: nil, repeats: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         animateBackground()
-        
     }
 
 }
@@ -52,8 +52,8 @@ private extension GameViewController {
     
     func setupViews() {
         setupLevel()
-        view.addSubviewsForAutoLayout([carImage, closeGameButton])
-        view.addSubview(obstacleImage1)
+        view.addSubviewsForAutoLayout([carImage, closeGameButton, gameScoreLabel])
+        view.addSubview(obstacleImage)
         
         carImage.contentMode = .scaleAspectFit
         
@@ -64,10 +64,12 @@ private extension GameViewController {
             carImage.heightAnchor.constraint(equalToConstant: 150)
         ])
         
-        obstacleImage1.contentMode = .scaleAspectFit
-        obstacleImage1.frame.size = CGSize(width: 100, height: 100)
-        obstacleImage1.frame.origin.x = view.bounds.minX - obstacleImage1.frame.size.height
-        obstacleImage1.frame.origin.y = view.bounds.minY - obstacleImage1.frame.size.height
+        obstacleImage.contentMode = .scaleAspectFit
+        obstacleImage.frame.size = CGSize(width: 100, height: 100)
+        obstacleImage.frame.origin.x = view.bounds.minX - obstacleImage.frame.size.height
+        obstacleImage.frame.origin.y = view.bounds.minY - obstacleImage.frame.size.height
+        
+        carImage.isUserInteractionEnabled = true
         
         let swipeLeftRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipe))
         swipeLeftRecognizer.direction = .left
@@ -76,20 +78,27 @@ private extension GameViewController {
         let swipeRightRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipe))
         swipeRightRecognizer.direction = .right
         carImage.addGestureRecognizer(swipeRightRecognizer)
-
-        carImage.isUserInteractionEnabled = true
-
-        closeGameButton.setTitle("Выход", for: .normal)
+        
+        closeGameButton.setTitle("X", for: .normal)
         closeGameButton.setTitleColor(.white, for: .normal)
         closeGameButton.backgroundColor = .systemBlue
-        closeGameButton.layer.cornerRadius = 20
+        closeGameButton.layer.cornerRadius = 15
         closeGameButton.addTarget(self, action: #selector(closeGame), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            closeGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            closeGameButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            closeGameButton.widthAnchor.constraint(equalToConstant: 120),
-            closeGameButton.heightAnchor.constraint(equalToConstant: 40)
+            closeGameButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            closeGameButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            closeGameButton.widthAnchor.constraint(equalToConstant: 30),
+            closeGameButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        gameScoreLabel.text = "\(count)"
+        gameScoreLabel.font = UIFont.boldSystemFont(ofSize: 64.0)
+        gameScoreLabel.textColor = .systemBlue
+        
+        NSLayoutConstraint.activate([
+            gameScoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            gameScoreLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
     
@@ -99,8 +108,10 @@ private extension GameViewController {
             levelImageName = "summerLevel"
         case 1:
             levelImageName = "spaceLevel"
-        default:
+        case 2:
             levelImageName = "snowLevel"
+        default:
+            return
         }
         generateBackgroundImage()
     }
@@ -173,7 +184,7 @@ private extension GameViewController {
     func removeAnimations() {
         self.backgroundImage.layer.removeAllAnimations()
         self.backgroundImage2.layer.removeAllAnimations()
-        self.obstacleImage1.layer.removeAllAnimations()
+        self.obstacleImage.layer.removeAllAnimations()
         self.view.layer.removeAllAnimations()
     }
     
@@ -191,11 +202,10 @@ private extension GameViewController {
     
     
     @objc func generateAnimObstacle() {
-        
-        obstacleImage1.frame.origin.y = view.bounds.minY - obstacleImage1.frame.size.height
-        obstacleImage1.frame.origin.x = arrayX.randomElement() ?? midX
+        obstacleImage.frame.origin.y = view.bounds.minY - obstacleImage.frame.size.height
+        obstacleImage.frame.origin.x = arrayX.randomElement() ?? midX
 
-        goAnim(obtacle: obstacleImage1)
+        goAnim(obtacle: obstacleImage)
     }
     
     func goAnim(obtacle: UIImageView) {
@@ -206,17 +216,21 @@ private extension GameViewController {
         } completion: { _ in
             if obtacle.frame.maxY == self.view.frame.maxY + obtacle.frame.size.width {
                 self.count += 1
-                print(self.count)
+//                Почему то игра сходит с ума если обновлять каунт.
+//                gameScoreLabel.text = "\(count)"
             }
         }
     }
     
     @objc func searchContact() {
-        if self.carImage.frame.intersects(self.obstacleImage1.layer.presentation()?.frame ?? CGRect()) {
+        if self.carImage.frame.intersects(self.obstacleImage.layer.presentation()?.frame ?? CGRect()) {
             cancelTimer()
             removeAnimations()
-            self.count -= 1
             print("ops")
+            let gameOverViewController = GameOverViewController()
+            gameOverViewController.modalPresentationStyle = .fullScreen
+            gameOverViewController.count = count
+            present(gameOverViewController, animated: true, completion: nil)
         }
     }
     
