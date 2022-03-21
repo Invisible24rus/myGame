@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     private let logoImage = UIImageView(image: UIImage(named: "Some Games"))
     private let startGameButton = UIButton(type: .system)
     private let settingButton = UIButton(type: .system)
+    private let tableScoreButton = UIButton(type: .system)
     
 
     override func viewDidLoad() {
@@ -31,7 +32,7 @@ private extension MainViewController {
     
     func setupViews() {
         backgroundImage.contentMode = .scaleAspectFill
-        view.addSubviewsForAutoLayout([backgroundImage,logoImage,startGameButton,settingButton])
+        view.addSubviewsForAutoLayout([backgroundImage,logoImage,startGameButton,settingButton, tableScoreButton])
         
         NSLayoutConstraint.activate([
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -75,6 +76,25 @@ private extension MainViewController {
             settingButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
+        tableScoreButton.setTitle("Таблица лидеров", for: .normal)
+        tableScoreButton.setTitleColor(.white, for: .normal)
+        tableScoreButton.backgroundColor = .systemBlue
+        tableScoreButton.layer.cornerRadius = 20
+        tableScoreButton.addTarget(self, action: #selector(showScoreTableVC), for: .touchUpInside)
+        
+        NSLayoutConstraint.activate([
+            tableScoreButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableScoreButton.topAnchor.constraint(equalTo: settingButton.bottomAnchor, constant: 20),
+            tableScoreButton.widthAnchor.constraint(equalToConstant: 150),
+            tableScoreButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+    }
+    
+    @objc func startGame() {
+        let gameVC = GameViewController()
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.pushViewController(gameVC, animated: true)
     }
     
     @objc func showSettingsVC() {
@@ -84,11 +104,14 @@ private extension MainViewController {
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
-    @objc func startGame() {
-        let gameVC = GameViewController()
-        gameVC.modalPresentationStyle = .fullScreen
-        present(gameVC, animated: false, completion: nil)
+    @objc func showScoreTableVC() {
+        let scoreTableVC = TableScoreViewController()
+        navigationItem.backButtonTitle = ""
+        navigationController?.navigationBar.tintColor = .black
+        navigationController?.pushViewController(scoreTableVC, animated: true)
     }
+    
+    
     
     
 }

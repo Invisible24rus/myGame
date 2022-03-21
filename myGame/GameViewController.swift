@@ -12,13 +12,11 @@ class GameViewController: UIViewController {
     private var levelImageName = ""
     private var backgroundImage = UIImageView()
     private var backgroundImage2 = UIImageView()
-    private var gameScoreLabel = UILabel()
     
     private var obstacleImage = UIImageView(image: UIImage(named: "obstacle"))
  
     private let carImage = UIImageView(image: UIImage(named: "purpleCar"))
     private let closeGameButton = UIButton(type: .system)
-    private var count = 0
     
     private var gameTimer: Timer?
     private var gameTimer2: Timer?
@@ -28,12 +26,13 @@ class GameViewController: UIViewController {
     lazy var maxX = view.frame.maxX - obstacleImage.frame.size.height
     private lazy var arrayX = [minX, midX, maxX]
     
+    private let userDefaults = UserSettings()
     
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        userDefaults.gameScore = 0
         setupViews()
         gameTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(generateAnimObstacle), userInfo: nil, repeats: true)
         gameTimer2 = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(searchContact), userInfo: nil, repeats: true)
@@ -52,10 +51,12 @@ private extension GameViewController {
     
     func setupViews() {
         setupLevel()
-        view.addSubviewsForAutoLayout([carImage, closeGameButton, gameScoreLabel])
+        navigationItem.hidesBackButton = true
+        view.addSubviewsForAutoLayout([carImage, closeGameButton])
         view.addSubview(obstacleImage)
         
         carImage.contentMode = .scaleAspectFit
+        
         
         NSLayoutConstraint.activate([
             carImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -91,19 +92,10 @@ private extension GameViewController {
             closeGameButton.widthAnchor.constraint(equalToConstant: 30),
             closeGameButton.heightAnchor.constraint(equalToConstant: 30)
         ])
-        
-        gameScoreLabel.text = "\(count)"
-        gameScoreLabel.font = UIFont.boldSystemFont(ofSize: 64.0)
-        gameScoreLabel.textColor = .systemBlue
-        
-        NSLayoutConstraint.activate([
-            gameScoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            gameScoreLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-        ])
     }
     
     func setupLevel() {
-        switch UserDefaults.standard.integer(forKey: UserDefaultsKeys.level) {
+        switch userDefaults.level {
         case 0:
             levelImageName = "summerLevel"
         case 1:
@@ -148,7 +140,7 @@ private extension GameViewController {
     @objc func closeGame() {
         view.layer.removeAllAnimations()
         cancelTimer()
-        dismiss(animated: false, completion: nil)
+        navigationController?.popViewController(animated: false)
         
     }
     
@@ -190,7 +182,7 @@ private extension GameViewController {
     
     func animateBackground() {
         UIView.animate(withDuration: 3,
-                       delay: 0,
+                       delay: 1,
                        options: [.repeat, .curveLinear], animations: {
             
             self.backgroundImage.frame = self.backgroundImage.frame.offsetBy(dx: 0.0, dy: +1 * self.backgroundImage.frame.size.height)
@@ -215,11 +207,16 @@ private extension GameViewController {
             obtacle.frame = obtacle.frame.offsetBy(dx: 0.0, dy: +1 * (self.view.bounds.height + obtacle.frame.size.width))
         } completion: { _ in
             if obtacle.frame.maxY == self.view.frame.maxY + obtacle.frame.size.width {
-                self.count += 1
+                self.userDefaults.gameScore += 1
 //                Почему то игра сходит с ума если обновлять каунт. 
 //                gameScoreLabel.text = "\(count)"
             }
         }
+    }
+    
+    func gameOver() {
+        let gameOverViewController = GameOverViewController()
+        navigationController?.pushViewController(gameOverViewController, animated: true)
     }
     
     @objc func searchContact() {
@@ -227,10 +224,7 @@ private extension GameViewController {
             cancelTimer()
             removeAnimations()
             print("ops")
-            let gameOverViewController = GameOverViewController()
-            gameOverViewController.modalPresentationStyle = .fullScreen
-            gameOverViewController.count = count
-            present(gameOverViewController, animated: true, completion: nil)
+            gameOver()
         }
     }
     

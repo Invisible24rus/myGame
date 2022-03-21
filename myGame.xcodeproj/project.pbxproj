@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1113C18B27E7CAD400FF006E /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1113C18A27E7CAD400FF006E /* GameOverViewController.swift */; };
+		1119324E27E85B3C00ECAED4 /* TableScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119324D27E85B3C00ECAED4 /* TableScoreViewController.swift */; };
+		1119325327E8A32300ECAED4 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119325227E8A32300ECAED4 /* UserModel.swift */; };
+		1119325627E8B00200ECAED4 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119325527E8B00200ECAED4 /* UserDefaults.swift */; };
+		1119325927E8B16900ECAED4 /* PropertyListValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119325827E8B16900ECAED4 /* PropertyListValue.swift */; };
+		1119325B27E8B18E00ECAED4 /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119325A27E8B18E00ECAED4 /* UserDefaultKey.swift */; };
+		1119325D27E8CA4A00ECAED4 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1119325C27E8CA4A00ECAED4 /* CustomTableViewCell.swift */; };
 		112F5289274433AC0074F55A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112F5288274433AC0074F55A /* AppDelegate.swift */; };
 		112F528B274433AC0074F55A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112F528A274433AC0074F55A /* SceneDelegate.swift */; };
 		112F528D274433AC0074F55A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112F528C274433AC0074F55A /* MainViewController.swift */; };
@@ -42,6 +48,12 @@
 
 /* Begin PBXFileReference section */
 		1113C18A27E7CAD400FF006E /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
+		1119324D27E85B3C00ECAED4 /* TableScoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableScoreViewController.swift; sourceTree = "<group>"; };
+		1119325227E8A32300ECAED4 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		1119325527E8B00200ECAED4 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		1119325827E8B16900ECAED4 /* PropertyListValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyListValue.swift; sourceTree = "<group>"; };
+		1119325A27E8B18E00ECAED4 /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
+		1119325C27E8CA4A00ECAED4 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		112F5285274433AC0074F55A /* myGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		112F5288274433AC0074F55A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		112F528A274433AC0074F55A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +98,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1119325127E8A31600ECAED4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1119325227E8A32300ECAED4 /* UserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1119325727E8B14200ECAED4 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				1119325A27E8B18E00ECAED4 /* UserDefaultKey.swift */,
+				1119325827E8B16900ECAED4 /* PropertyListValue.swift */,
+				11AEF8B8274A9ACC002ED50E /* UserSettings.swift */,
+				1119325527E8B00200ECAED4 /* UserDefaults.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		112F527C274433AC0074F55A = {
 			isa = PBXGroup;
 			children = (
@@ -109,15 +140,18 @@
 		112F5287274433AC0074F55A /* myGame */ = {
 			isa = PBXGroup;
 			children = (
+				1119325727E8B14200ECAED4 /* Storage */,
+				1119325127E8A31600ECAED4 /* Model */,
 				112F52B9274438940074F55A /* Extensions */,
 				112F52B8274433B80074F55A /* Resources */,
 				112F5288274433AC0074F55A /* AppDelegate.swift */,
 				112F528A274433AC0074F55A /* SceneDelegate.swift */,
-				11AEF8B8274A9ACC002ED50E /* UserSettings.swift */,
 				112F528C274433AC0074F55A /* MainViewController.swift */,
 				11AEF8B4274A6F5D002ED50E /* SettingsViewController.swift */,
 				11AEF8B6274A83CA002ED50E /* GameViewController.swift */,
 				1113C18A27E7CAD400FF006E /* GameOverViewController.swift */,
+				1119324D27E85B3C00ECAED4 /* TableScoreViewController.swift */,
+				1119325C27E8CA4A00ECAED4 /* CustomTableViewCell.swift */,
 				112F528E274433AC0074F55A /* Main.storyboard */,
 			);
 			path = myGame;
@@ -290,13 +324,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				112F528D274433AC0074F55A /* MainViewController.swift in Sources */,
+				1119324E27E85B3C00ECAED4 /* TableScoreViewController.swift in Sources */,
 				112F52BB274438B00074F55A /* UIView + Constraints.swift in Sources */,
 				112F5289274433AC0074F55A /* AppDelegate.swift in Sources */,
+				1119325927E8B16900ECAED4 /* PropertyListValue.swift in Sources */,
 				11AEF8B5274A6F5D002ED50E /* SettingsViewController.swift in Sources */,
 				1113C18B27E7CAD400FF006E /* GameOverViewController.swift in Sources */,
 				11AEF8B9274A9ACC002ED50E /* UserSettings.swift in Sources */,
+				1119325B27E8B18E00ECAED4 /* UserDefaultKey.swift in Sources */,
+				1119325627E8B00200ECAED4 /* UserDefaults.swift in Sources */,
+				1119325D27E8CA4A00ECAED4 /* CustomTableViewCell.swift in Sources */,
 				11AEF8B7274A83CA002ED50E /* GameViewController.swift in Sources */,
 				112F528B274433AC0074F55A /* SceneDelegate.swift in Sources */,
+				1119325327E8A32300ECAED4 /* UserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

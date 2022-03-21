@@ -15,6 +15,7 @@ class SettingsViewController: UIViewController {
     private let userNameTextField = UITextField()
     private let saveSettingsButton = UIButton(type: .system)
     private let levelSegmentedControl = UISegmentedControl(items: ["Лето", "Космос", "Зима"])
+    private let userDefaults = UserSettings()
 
 
     override func viewDidLoad() {
@@ -57,7 +58,7 @@ private extension SettingsViewController {
         
         userNameTextField.backgroundColor = .white
         userNameTextField.borderStyle = .line
-        userNameTextField.text = UserDefaults.standard.string(forKey: UserDefaultsKeys.name)
+        userNameTextField.text = userDefaults.name
         userNameTextField.placeholder = "Введите свое имя"
         
         NSLayoutConstraint.activate([
@@ -77,7 +78,7 @@ private extension SettingsViewController {
         ])
         
         levelSegmentedControl.backgroundColor = .white
-        levelSegmentedControl.selectedSegmentIndex = UserDefaults.standard.integer(forKey: UserDefaultsKeys.level)
+        levelSegmentedControl.selectedSegmentIndex = userDefaults.level
         
         NSLayoutConstraint.activate([
             levelSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -96,16 +97,13 @@ private extension SettingsViewController {
             saveSettingsButton.topAnchor.constraint(equalTo: levelSegmentedControl.bottomAnchor, constant: 20),
             saveSettingsButton.widthAnchor.constraint(equalToConstant: 120),
             saveSettingsButton.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        
-        
-        
+        ])     
     }
 
 
     @objc func saveSettings() {
-        UserDefaults.standard.set(userNameTextField.text, forKey: UserDefaultsKeys.name)
-        UserDefaults.standard.set(levelSegmentedControl.selectedSegmentIndex, forKey: UserDefaultsKeys.level)
+        userDefaults.level = levelSegmentedControl.selectedSegmentIndex
+        userDefaults.name = userNameTextField.text
         navigationController?.popViewController(animated: true)
     }
 }

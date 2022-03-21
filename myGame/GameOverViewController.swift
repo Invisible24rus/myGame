@@ -9,6 +9,8 @@ import UIKit
 
 class GameOverViewController: UIViewController {
     
+    private let userDefaults = UserSettings()
+    
     private let gameOverLabel: UILabel = {
         let label = UILabel()
         label.text = "Конец игры"
@@ -25,9 +27,16 @@ class GameOverViewController: UIViewController {
         return label
     }()
     
+    private let userNameLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.textColor = .systemBlue
+        label.font = UIFont.boldSystemFont(ofSize: 24.0)
+        return label
+    }()
+    
     private let closeGameButton = UIButton(type: .system)
     
-    var count = 0
     
 
     override func viewDidLoad() {
@@ -44,42 +53,66 @@ private extension GameOverViewController {
     
     func setupViews() {
         
+        if userDefaults.name == "" {
+            userDefaults.name = "No name"
+        }
+        userNameLabel.text = userDefaults.name
+        
+        let newUser = [userDefaults.name ?? "No Name": userDefaults.gameScore]
+        userDefaults.tableLeaders.append(newUser)
+        userDefaults.tableLeaders.sort { (($0 as Dictionary<String, Int>)[userDefaults.name ?? "No name"] ?? 0) > (($1 as Dictionary<String, Int>)[userDefaults.name ?? "No name"] ?? 0) }
+        print(userDefaults.tableLeaders)
+//
+//        userModel.name = userNameLabel.text ?? "No Name"
+//        userModel.score = count
+//        usersScore.append(userModel)
+//        print(usersScore)
+//        userScore.append(["User": userNameLabel.text ?? "No name", "Score": count])
+//        userScore.sort { (($0 as! Dictionary<String, AnyObject>)["Score"] as? Int ?? 0) > (($1 as! Dictionary<String, AnyObject>)["Score"] as? Int ?? 0) }
+//        UserDefaults.standard.set(usersScore, forKey: UserDefaultsKeys.gameScore)
+
+        
+        navigationItem.hidesBackButton = true
+        
         view.backgroundColor = .white
         
-        view.addSubviewsForAutoLayout([gameOverLabel, gameScoreLabel, closeGameButton])
+        view.addSubviewsForAutoLayout([gameOverLabel, gameScoreLabel, closeGameButton, userNameLabel])
         
         NSLayoutConstraint.activate([
             gameOverLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             gameOverLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
         ])
         
-        gameScoreLabel.text = "Ваш счет \(count)"
+        NSLayoutConstraint.activate([
+            userNameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            userNameLabel.topAnchor.constraint(equalTo: gameOverLabel.bottomAnchor, constant: 50),
+        ])
+        
+        gameScoreLabel.text = "Ваш счет \(userDefaults.gameScore)"
+        
         
         NSLayoutConstraint.activate([
             gameScoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            gameScoreLabel.topAnchor.constraint(equalTo: gameOverLabel.bottomAnchor, constant: 50),
+            gameScoreLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 20),
         ])
         
-        closeGameButton.setTitle("X", for: .normal)
+        closeGameButton.setTitle("В меню", for: .normal)
         closeGameButton.setTitleColor(.white, for: .normal)
         closeGameButton.backgroundColor = .systemBlue
         closeGameButton.layer.cornerRadius = 15
         closeGameButton.addTarget(self, action: #selector(closeGame), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            closeGameButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
-            closeGameButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            closeGameButton.widthAnchor.constraint(equalToConstant: 30),
-            closeGameButton.heightAnchor.constraint(equalToConstant: 30)
+            closeGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            closeGameButton.topAnchor.constraint(equalTo: gameScoreLabel.bottomAnchor, constant: 100),
+            closeGameButton.widthAnchor.constraint(equalToConstant: 120),
+            closeGameButton.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
         
     }
     
     @objc func closeGame() {
-        let someVC = MainViewController()
-        someVC.modalPresentationStyle = .fullScreen
-//        Ты говорил что нельзя презентиться, чтобы бесконечной цепочки не было. А как перейти с этого экрана на 1ый, при этом удалив 3ий?
-        present(someVC, animated: false, completion: nil)
-        
+        navigationController?.popToRootViewController(animated: true)
     }
 }
