@@ -14,15 +14,12 @@ class MainViewController: UIViewController {
     private let startGameButton = UIButton(type: .system)
     private let settingButton = UIButton(type: .system)
     private let tableScoreButton = UIButton(type: .system)
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         dismiss(animated: false, completion: nil)
     }
-
-
 }
 
 
@@ -48,7 +45,6 @@ private extension MainViewController {
             logoImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
         ])
-        
         
         startGameButton.setTitle("Новая игра", for: .normal)
         startGameButton.setTitleColor(.white, for: .normal)
@@ -88,7 +84,6 @@ private extension MainViewController {
             tableScoreButton.widthAnchor.constraint(equalToConstant: 150),
             tableScoreButton.heightAnchor.constraint(equalToConstant: 40)
         ])
-        
     }
     
     @objc func startGame() {
@@ -110,8 +105,4 @@ private extension MainViewController {
         navigationController?.navigationBar.tintColor = .black
         navigationController?.pushViewController(scoreTableVC, animated: true)
     }
-    
-    
-    
-    
 }

@@ -29,7 +29,6 @@ class GameOverViewController: UIViewController {
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
         label.textColor = .systemBlue
         label.font = UIFont.boldSystemFont(ofSize: 24.0)
         return label
@@ -37,13 +36,9 @@ class GameOverViewController: UIViewController {
     
     private let closeGameButton = UIButton(type: .system)
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        
-
     }
 }
 
@@ -53,24 +48,22 @@ private extension GameOverViewController {
     
     func setupViews() {
         
-        if userDefaults.name == "" {
-            userDefaults.name = "No name"
+        if userDefaults.name == nil {
+            userNameLabel.text = "No Name"
+        } else {
+            userNameLabel.text = userDefaults.name
         }
-        userNameLabel.text = userDefaults.name
         
-        let newUser = [userDefaults.name ?? "No Name": userDefaults.gameScore]
-        userDefaults.tableLeaders.append(newUser)
-        userDefaults.tableLeaders.sort { (($0 as Dictionary<String, Int>)[userDefaults.name ?? "No name"] ?? 0) > (($1 as Dictionary<String, Int>)[userDefaults.name ?? "No name"] ?? 0) }
-        print(userDefaults.tableLeaders)
-//
-//        userModel.name = userNameLabel.text ?? "No Name"
-//        userModel.score = count
-//        usersScore.append(userModel)
-//        print(usersScore)
-//        userScore.append(["User": userNameLabel.text ?? "No name", "Score": count])
-//        userScore.sort { (($0 as! Dictionary<String, AnyObject>)["Score"] as? Int ?? 0) > (($1 as! Dictionary<String, AnyObject>)["Score"] as? Int ?? 0) }
-//        UserDefaults.standard.set(usersScore, forKey: UserDefaultsKeys.gameScore)
-
+        if userDefaults.tableLeaders == nil {
+            var userArray: [[String: Int]] = []
+            let newUser = [userDefaults.name ?? "No Name": userDefaults.gameScore]
+            userArray.append(newUser)
+            userDefaults.tableLeaders = userArray
+        } else {
+            let newUser = [userDefaults.name ?? "No Name": userDefaults.gameScore]
+            userDefaults.tableLeaders?.append(newUser)
+            userDefaults.tableLeaders?.sort { (($0 as Dictionary<String, Int>)[userDefaults.name ?? "No name"] ?? 0) > (($1 as Dictionary<String, Int>)[userDefaults.name ?? "No name"] ?? 0) }
+        }
         
         navigationItem.hidesBackButton = true
         
@@ -108,8 +101,6 @@ private extension GameOverViewController {
             closeGameButton.widthAnchor.constraint(equalToConstant: 120),
             closeGameButton.heightAnchor.constraint(equalToConstant: 40)
         ])
-        
-        
     }
     
     @objc func closeGame() {

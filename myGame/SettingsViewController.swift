@@ -17,15 +17,10 @@ class SettingsViewController: UIViewController {
     private let levelSegmentedControl = UISegmentedControl(items: ["Лето", "Космос", "Зима"])
     private let userDefaults = UserSettings()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
-    
-
-  
-
 }
 
 //MARK: - Extension
@@ -99,7 +94,6 @@ private extension SettingsViewController {
             saveSettingsButton.heightAnchor.constraint(equalToConstant: 40)
         ])     
     }
-
 
     @objc func saveSettings() {
         userDefaults.level = levelSegmentedControl.selectedSegmentIndex

@@ -9,19 +9,14 @@ import UIKit
 
 class TableScoreViewController: UIViewController {
     
-    
     private let userDefaults = UserSettings()
     private let tableView = UITableView()
-
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         setupViews()
         tableView.reloadData()
-
     }
 }
 
@@ -44,7 +39,6 @@ private extension TableScoreViewController {
             
         ])
     }
-    
 }
 
 //MARK: - UITableViewDataSource
@@ -52,17 +46,13 @@ private extension TableScoreViewController {
 extension TableScoreViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        userDefaults.tableLeaders.count
+        userDefaults.tableLeaders?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CustomTableViewCell.identifier, for: indexPath) as! CustomTableViewCell
-        let arrayDict = indexPath
-            cell.cellConfig(indexPath: arrayDict)
-    
-        
+        let indexPath = indexPath
+        cell.cellConfig(indexPath: indexPath)
         return cell
-        
     }
-    
 }

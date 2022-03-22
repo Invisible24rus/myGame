@@ -17,7 +17,7 @@ import Foundation
 //}
 
 class UserSettings {
-    @NameUserDefault(key: .name, defaultValue: "No Name")
+    @NameUserDefault(key: .name)
     var name: String?
     
     @LevelUserDefault(key: .level, defaultValue: 0)
@@ -26,8 +26,8 @@ class UserSettings {
     @GameScoreUserDefault(key: .gameScore, defaultValue: 0)
     var gameScore: Int
     
-    @TableLeadersDefault(key: .tableLeaders, defaultValue: [["No name": 0]])
-    var tableLeaders: [[String: Int]]
+    @TableLeadersDefault(key: .tableLeaders)
+    var tableLeaders: [[String: Int]]?
 }
 
 private extension UserDefaultKey {

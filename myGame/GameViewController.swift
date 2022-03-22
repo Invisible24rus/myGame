@@ -25,7 +25,6 @@ class GameViewController: UIViewController {
     lazy var midX = view.frame.midX - obstacleImage.frame.size.height / 2
     lazy var maxX = view.frame.maxX - obstacleImage.frame.size.height
     private lazy var arrayX = [minX, midX, maxX]
-    
     private let userDefaults = UserSettings()
     
 
@@ -42,7 +41,6 @@ class GameViewController: UIViewController {
         super.viewDidAppear(animated)
         animateBackground()
     }
-
 }
 
 //MARK: - Extension
@@ -123,8 +121,8 @@ private extension GameViewController {
         NSLayoutConstraint.activate([
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
         NSLayoutConstraint.activate([
@@ -133,15 +131,12 @@ private extension GameViewController {
             backgroundImage2.topAnchor.constraint(equalTo: view.topAnchor, constant: -view.frame.height),
             backgroundImage2.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height),
         ])
-        
-        
     }
     
     @objc func closeGame() {
         view.layer.removeAllAnimations()
         cancelTimer()
         navigationController?.popViewController(animated: false)
-        
     }
     
     func cancelTimer() {
@@ -169,7 +164,6 @@ private extension GameViewController {
             }
         default:
             break
-            
         }
     }
     
@@ -192,7 +186,6 @@ private extension GameViewController {
         }, completion: nil)
     }
     
-    
     @objc func generateAnimObstacle() {
         obstacleImage.frame.origin.y = view.bounds.minY - obstacleImage.frame.size.height
         obstacleImage.frame.origin.x = arrayX.randomElement() ?? midX
@@ -208,8 +201,6 @@ private extension GameViewController {
         } completion: { _ in
             if obtacle.frame.maxY == self.view.frame.maxY + obtacle.frame.size.width {
                 self.userDefaults.gameScore += 1
-//                Почему то игра сходит с ума если обновлять каунт. 
-//                gameScoreLabel.text = "\(count)"
             }
         }
     }
@@ -227,5 +218,4 @@ private extension GameViewController {
             gameOver()
         }
     }
-    
 }

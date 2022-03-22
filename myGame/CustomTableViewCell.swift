@@ -14,21 +14,20 @@ class CustomTableViewCell: UITableViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "No name"
+        label.text = ""
         label.textColor = .black
         return label
     }()
     
     let scoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = ""
         label.textColor = .black
         return label
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         setupViews()
         self.selectionStyle = .none
     }
@@ -38,13 +37,11 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func cellConfig(indexPath: IndexPath) {
-        
-        let key = userDefaults.tableLeaders[indexPath.row].keys
-        let arrayKey = Array(key)
-        nameLabel.text = arrayKey[0]
-        
-        let value = userDefaults.tableLeaders[indexPath.row].values
+        guard  let value = userDefaults.tableLeaders?[indexPath.row].values else { return }
+        guard let key = userDefaults.tableLeaders?[indexPath.row].keys else { return }
         let arrayValue = Array(value)
+        let arrayKey = Array(key)
+        nameLabel.text = (arrayKey[0])
         scoreLabel.text = "\(arrayValue[0])"
     }
     
@@ -59,8 +56,5 @@ class CustomTableViewCell: UITableViewCell {
             scoreLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             scoreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         ])
-        
-        
     }
-
 }
