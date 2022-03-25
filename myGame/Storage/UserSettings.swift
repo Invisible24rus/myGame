@@ -27,7 +27,7 @@ class UserSettings {
     var gameScore: Int
     
     @TableLeadersDefault(key: .tableLeaders)
-    var tableLeaders: [[String: Int]]?
+    var tableLeaders: [[String: Any]]?
 }
 
 private extension UserDefaultKey {

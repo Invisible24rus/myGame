@@ -9,12 +9,13 @@ import UIKit
 
 class TableScoreViewController: UIViewController {
     
-    private let userDefaults = UserSettings()
+    private var userDefaults = UserSettings()
     private let tableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        
         setupViews()
         tableView.reloadData()
     }

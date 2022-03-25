@@ -9,7 +9,7 @@ import UIKit
 
 class GameOverViewController: UIViewController {
     
-    private let userDefaults = UserSettings()
+    private var userDefaults = UserSettings()
     
     private let gameOverLabel: UILabel = {
         let label = UILabel()
@@ -55,14 +55,20 @@ private extension GameOverViewController {
         }
         
         if userDefaults.tableLeaders == nil {
-            var userArray: [[String: Int]] = []
-            let newUser = [userDefaults.name ?? "No Name": userDefaults.gameScore]
+            var userArray: [[String: Any]] = []
+            let newUser = ["Name": userDefaults.name ?? "No Name", "Score": userDefaults.gameScore] as [String : Any]
             userArray.append(newUser)
             userDefaults.tableLeaders = userArray
         } else {
-            let newUser = [userDefaults.name ?? "No Name": userDefaults.gameScore]
+            let newUser = ["Name": userDefaults.name ?? "No Name", "Score": userDefaults.gameScore] as [String : Any]
             userDefaults.tableLeaders?.append(newUser)
-            userDefaults.tableLeaders?.sort { (($0 as Dictionary<String, Int>)[userDefaults.name ?? "No name"] ?? 0) > (($1 as Dictionary<String, Int>)[userDefaults.name ?? "No name"] ?? 0) }
+            userDefaults.tableLeaders?.sort { (($0["Score"] as? Int ?? 0) > ($1["Score"] as? Int ?? 0)) }
+            
+            
+//            let sortedByValueArray = userDefaults.tableLeaders?.sorted(by: {
+//                if $0.value != $1.value { return $0.value > $1.value } else { return String(describing: $0.key) < String(describing: $1.key) } })
+            
+//            userDefaults.tableLeaders?.sort { ($0[userDefaults.name ?? "No name"] ?? 0) > ($1[userDefaults.name ?? "No name"] ?? 0) }
         }
         
         navigationItem.hidesBackButton = true

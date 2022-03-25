@@ -37,11 +37,11 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func cellConfig(indexPath: IndexPath) {
-        guard  let value = userDefaults.tableLeaders?[indexPath.row].values else { return }
-        guard let key = userDefaults.tableLeaders?[indexPath.row].keys else { return }
-        let arrayValue = Array(value)
-        let arrayKey = Array(key)
-        nameLabel.text = (arrayKey[0])
+        guard  let value = userDefaults.tableLeaders?[indexPath.row]["Score"] else { return }
+        guard let key = userDefaults.tableLeaders?[indexPath.row]["Name"] else { return }
+        let arrayValue = Array(arrayLiteral: value)
+        let arrayKey = Array(arrayLiteral: key)
+        nameLabel.text = "\(arrayKey[0])"
         scoreLabel.text = "\(arrayValue[0])"
     }
     

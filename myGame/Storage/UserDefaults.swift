@@ -56,7 +56,7 @@ struct GameScoreUserDefault<T: PropertyListValue> {
 }
 
 @propertyWrapper
-struct TableLeadersDefault<T: PropertyListValue> {
+struct TableLeadersDefault<T: Any> {
     private let key: UserDefaultKey
     private let defaultValue: T?
     
