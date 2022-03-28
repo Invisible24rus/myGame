@@ -46,7 +46,7 @@ private extension MainViewController {
             logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
         ])
         
-        startGameButton.setTitle("Новая игра", for: .normal)
+        startGameButton.setTitle(NSLocalizedString("newGame", comment: ""), for: .normal)
         startGameButton.setTitleColor(.white, for: .normal)
         startGameButton.backgroundColor = .systemBlue
         startGameButton.layer.cornerRadius = 20
@@ -59,7 +59,7 @@ private extension MainViewController {
             startGameButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        settingButton.setTitle("Настройки", for: .normal)
+        settingButton.setTitle(NSLocalizedString("settings", comment: ""), for: .normal)
         settingButton.setTitleColor(.white, for: .normal)
         settingButton.backgroundColor = .systemBlue
         settingButton.layer.cornerRadius = 20
@@ -72,7 +72,7 @@ private extension MainViewController {
             settingButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        tableScoreButton.setTitle("Таблица лидеров", for: .normal)
+        tableScoreButton.setTitle(NSLocalizedString("tableScore", comment: ""), for: .normal)
         tableScoreButton.setTitleColor(.white, for: .normal)
         tableScoreButton.backgroundColor = .systemBlue
         tableScoreButton.layer.cornerRadius = 20

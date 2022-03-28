@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController {
     private let levelNameLabel = UILabel()
     private let userNameTextField = UITextField()
     private let saveSettingsButton = UIButton(type: .system)
-    private let levelSegmentedControl = UISegmentedControl(items: ["Лето", "Космос", "Зима"])
+    private let levelSegmentedControl = UISegmentedControl(items: [NSLocalizedString("summer", comment: ""), NSLocalizedString("space", comment: ""), NSLocalizedString("winter", comment: "")])
     private let userDefaults = UserSettings()
 
     override func viewDidLoad() {
@@ -29,7 +29,7 @@ private extension SettingsViewController {
     
     func setupViews() {
          
-        title = "Настройки"
+        title = NSLocalizedString("settings", comment: "")
         
         backgroundImage.contentMode = .scaleAspectFill
         
@@ -42,7 +42,7 @@ private extension SettingsViewController {
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
-        profileNameLabel.text = "Имя профиля"
+        profileNameLabel.text = NSLocalizedString("nameOfProfile", comment: "")
         profileNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
         profileNameLabel.textColor = .black
         
@@ -54,7 +54,7 @@ private extension SettingsViewController {
         userNameTextField.backgroundColor = .white
         userNameTextField.borderStyle = .line
         userNameTextField.text = userDefaults.name
-        userNameTextField.placeholder = "Введите свое имя"
+        userNameTextField.placeholder = NSLocalizedString("enterYourName", comment: "")
         
         NSLayoutConstraint.activate([
             userNameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -63,7 +63,7 @@ private extension SettingsViewController {
             userNameTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
         
-        levelNameLabel.text = "Уровень"
+        levelNameLabel.text = NSLocalizedString("level", comment: "")
         levelNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
         levelNameLabel.textColor = .black
         
@@ -81,7 +81,7 @@ private extension SettingsViewController {
 
         ])
 
-        saveSettingsButton.setTitle("Применить", for: .normal)
+        saveSettingsButton.setTitle(NSLocalizedString("done", comment: ""), for: .normal)
         saveSettingsButton.setTitleColor(.white, for: .normal)
         saveSettingsButton.backgroundColor = .systemBlue
         saveSettingsButton.layer.cornerRadius = 20

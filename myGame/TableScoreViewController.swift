@@ -25,7 +25,7 @@ private extension TableScoreViewController {
     
     func setupViews() {
         
-        title = "Tаблица лидеров"
+        title = NSLocalizedString("tableScore", comment: "")
         view.backgroundColor = .white
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false

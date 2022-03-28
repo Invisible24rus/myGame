@@ -13,7 +13,7 @@ class GameOverViewController: UIViewController {
     
     private let gameOverLabel: UILabel = {
         let label = UILabel()
-        label.text = "Конец игры"
+        label.text = NSLocalizedString("gameOver", comment: "")
         label.textColor = .systemBlue
         label.font = UIFont.boldSystemFont(ofSize: 64.0)
         return label
@@ -87,15 +87,15 @@ private extension GameOverViewController {
             userNameLabel.topAnchor.constraint(equalTo: gameOverLabel.bottomAnchor, constant: 50),
         ])
         
-        gameScoreLabel.text = "Ваш счет \(userDefaults.gameScore)"
-        
+//        gameScoreLabel.text = "Ваш счет \(userDefaults.gameScore)"
+        gameScoreLabel.text = String(format: NSLocalizedString("yourScore", comment: ""), userDefaults.gameScore)
         
         NSLayoutConstraint.activate([
             gameScoreLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             gameScoreLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 20),
         ])
         
-        closeGameButton.setTitle("В меню", for: .normal)
+        closeGameButton.setTitle(NSLocalizedString("menu", comment: ""), for: .normal)
         closeGameButton.setTitleColor(.white, for: .normal)
         closeGameButton.backgroundColor = .systemBlue
         closeGameButton.layer.cornerRadius = 15
