@@ -48,7 +48,7 @@ private extension MainViewController {
         
         NSLayoutConstraint.activate([
             startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startGameButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+            startGameButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             startGameButton.widthAnchor.constraint(equalToConstant: 120),
             startGameButton.heightAnchor.constraint(equalToConstant: 40)
         ])
