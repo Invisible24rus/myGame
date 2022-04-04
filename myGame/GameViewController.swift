@@ -15,7 +15,7 @@ class GameViewController: UIViewController {
     
     private var obstacleImage = UIImageView(image: UIImage(named: "obstacle"))
  
-    private let carImage = UIImageView(image: UIImage(named: "purpleCar"))
+    private let carImage = UIImageView(image: UIImage(named: "sportCar"))
     private let closeGameButton = UIButton(type: .system)
     
     private var gameTimer: Timer?
@@ -99,7 +99,7 @@ private extension GameViewController {
         case 1:
             levelImageName = "spaceLevel"
         case 2:
-            levelImageName = "snowLevel"
+            levelImageName = "retroLevel"
         default:
             return
         }
@@ -115,8 +115,8 @@ private extension GameViewController {
         view.sendSubviewToBack(backgroundImage)
         view.sendSubviewToBack(backgroundImage2)
 
-        backgroundImage.contentMode = .scaleAspectFill
-        backgroundImage2.contentMode = .scaleAspectFill
+        backgroundImage.contentMode = .scaleToFill
+        backgroundImage2.contentMode = .scaleToFill
 
         NSLayoutConstraint.activate([
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),

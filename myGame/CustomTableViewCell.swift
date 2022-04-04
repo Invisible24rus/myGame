@@ -15,14 +15,14 @@ class CustomTableViewCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
     
     let scoreLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .black
+        label.textColor = .white
         return label
     }()
 
@@ -47,13 +47,15 @@ class CustomTableViewCell: UITableViewCell {
     
     func setupViews() {
         
+        contentView.backgroundColor = .darkGray
+        
         contentView.addSubviewsForAutoLayout([nameLabel, scoreLabel])
         
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             
-            scoreLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+            scoreLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             scoreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
         ])
     }

@@ -9,12 +9,12 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    private let backgroundImage = UIImageView(image: UIImage(named: "backgroundImage"))
+    private let backgroundImage = UIImageView(image: UIImage(named: "backgroundImage2"))
     private let profileNameLabel = UILabel()
     private let levelNameLabel = UILabel()
     private let userNameTextField = UITextField()
     private let saveSettingsButton = UIButton(type: .system)
-    private let levelSegmentedControl = UISegmentedControl(items: [NSLocalizedString("summer", comment: ""), NSLocalizedString("space", comment: ""), NSLocalizedString("winter", comment: "")])
+    private let levelSegmentedControl = UISegmentedControl(items: [NSLocalizedString("summer", comment: ""), NSLocalizedString("space", comment: ""), NSLocalizedString("retro", comment: "")])
     private let userDefaults = UserSettings()
 
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ private extension SettingsViewController {
         
         profileNameLabel.text = NSLocalizedString("nameOfProfile", comment: "")
         profileNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-        profileNameLabel.textColor = .black
+        profileNameLabel.textColor = .white
         
         NSLayoutConstraint.activate([
             profileNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -65,7 +65,7 @@ private extension SettingsViewController {
         
         levelNameLabel.text = NSLocalizedString("level", comment: "")
         levelNameLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-        levelNameLabel.textColor = .black
+        levelNameLabel.textColor = .white
         
         NSLayoutConstraint.activate([
             levelNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

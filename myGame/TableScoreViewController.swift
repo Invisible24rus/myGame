@@ -15,7 +15,6 @@ class TableScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        
         setupViews()
         tableView.reloadData()
     }
@@ -26,10 +25,11 @@ private extension TableScoreViewController {
     func setupViews() {
         
         title = NSLocalizedString("tableScore", comment: "")
-        view.backgroundColor = .white
+        view.backgroundColor = .darkGray
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .darkGray
+        tableView.separatorColor = .white
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.identifier)
         
         NSLayoutConstraint.activate([

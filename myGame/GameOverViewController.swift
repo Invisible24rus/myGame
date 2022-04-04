@@ -10,11 +10,12 @@ import UIKit
 class GameOverViewController: UIViewController {
     
     private var userDefaults = UserSettings()
+    private let backgroundImage = UIImageView(image: UIImage(named: "backgroundImage3"))
     
     private let gameOverLabel: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("gameOver", comment: "")
-        label.textColor = .systemBlue
+        label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 64.0)
         return label
     }()
@@ -22,14 +23,14 @@ class GameOverViewController: UIViewController {
     private let gameScoreLabel: UILabel = {
         let label = UILabel()
         label.text = ""
-        label.textColor = .systemBlue
+        label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 24.0)
         return label
     }()
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemBlue
+        label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 24.0)
         return label
     }()
@@ -63,19 +64,22 @@ private extension GameOverViewController {
             let newUser = ["Name": userDefaults.name ?? "No Name", "Score": userDefaults.gameScore] as [String : Any]
             userDefaults.tableLeaders?.append(newUser)
             userDefaults.tableLeaders?.sort { (($0["Score"] as? Int ?? 0) > ($1["Score"] as? Int ?? 0)) }
-            
-            
-//            let sortedByValueArray = userDefaults.tableLeaders?.sorted(by: {
-//                if $0.value != $1.value { return $0.value > $1.value } else { return String(describing: $0.key) < String(describing: $1.key) } })
-            
-//            userDefaults.tableLeaders?.sort { ($0[userDefaults.name ?? "No name"] ?? 0) > ($1[userDefaults.name ?? "No name"] ?? 0) }
         }
         
         navigationItem.hidesBackButton = true
         
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         
-        view.addSubviewsForAutoLayout([gameOverLabel, gameScoreLabel, closeGameButton, userNameLabel])
+        view.addSubviewsForAutoLayout([backgroundImage, gameOverLabel, gameScoreLabel, closeGameButton, userNameLabel])
+        
+       
+        NSLayoutConstraint.activate([
+            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        
         
         NSLayoutConstraint.activate([
             gameOverLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -87,7 +91,6 @@ private extension GameOverViewController {
             userNameLabel.topAnchor.constraint(equalTo: gameOverLabel.bottomAnchor, constant: 50),
         ])
         
-//        gameScoreLabel.text = "Ваш счет \(userDefaults.gameScore)"
         gameScoreLabel.text = String(format: NSLocalizedString("yourScore", comment: ""), userDefaults.gameScore)
         
         NSLayoutConstraint.activate([

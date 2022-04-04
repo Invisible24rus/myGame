@@ -10,7 +10,6 @@ import UIKit
 class MainViewController: UIViewController {
     
     private let backgroundImage = UIImageView(image: UIImage(named: "backgroundImage"))
-    private let logoImage = UIImageView(image: UIImage(named: "Some Games"))
     private let startGameButton = UIButton(type: .system)
     private let settingButton = UIButton(type: .system)
     private let tableScoreButton = UIButton(type: .system)
@@ -29,21 +28,16 @@ private extension MainViewController {
     
     func setupViews() {
         backgroundImage.contentMode = .scaleAspectFill
-        view.addSubviewsForAutoLayout([backgroundImage,logoImage,startGameButton,settingButton, tableScoreButton])
+        view.addSubviewsForAutoLayout([backgroundImage,startGameButton,settingButton, tableScoreButton])
+        
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = attributes
         
         NSLayoutConstraint.activate([
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-        
-        logoImage.contentMode = .scaleAspectFit
-        
-        NSLayoutConstraint.activate([
-            logoImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            logoImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
         ])
         
         startGameButton.setTitle(NSLocalizedString("newGame", comment: ""), for: .normal)
@@ -54,7 +48,7 @@ private extension MainViewController {
         
         NSLayoutConstraint.activate([
             startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startGameButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            startGameButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             startGameButton.widthAnchor.constraint(equalToConstant: 120),
             startGameButton.heightAnchor.constraint(equalToConstant: 40)
         ])
@@ -95,14 +89,14 @@ private extension MainViewController {
     @objc func showSettingsVC() {
         let settingsVC = SettingsViewController()
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .white
         navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     @objc func showScoreTableVC() {
         let scoreTableVC = TableScoreViewController()
         navigationItem.backButtonTitle = ""
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = .white
         navigationController?.pushViewController(scoreTableVC, animated: true)
     }
 }
