@@ -13,13 +13,23 @@ class SettingsViewController: UIViewController {
     private let profileNameLabel = UILabel()
     private let levelNameLabel = UILabel()
     private let userNameTextField = UITextField()
-    private let saveSettingsButton = UIButton(type: .system)
     private let levelSegmentedControl = UISegmentedControl(items: [NSLocalizedString("summer", comment: ""), NSLocalizedString("space", comment: ""), NSLocalizedString("retro", comment: "")])
     private let userDefaults = UserSettings()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
+        view.addGestureRecognizer(recognizer)
+        userNameTextField.delegate = self
+    }
+    
+    @objc func tap() {
+        view.endEditing(true)
+    }
+    
+    @objc func saveSegment() {
+        userDefaults.level = levelSegmentedControl.selectedSegmentIndex
     }
 }
 
@@ -33,7 +43,11 @@ private extension SettingsViewController {
         
         backgroundImage.contentMode = .scaleAspectFill
         
-        view.addSubviewsForAutoLayout([backgroundImage,profileNameLabel, userNameTextField, saveSettingsButton, levelNameLabel, levelSegmentedControl])
+        userNameTextField.returnKeyType = .done
+        
+        levelSegmentedControl.addTarget(self, action: #selector(saveSegment), for: .valueChanged)
+        
+        view.addSubviewsForAutoLayout([backgroundImage,profileNameLabel, userNameTextField, levelNameLabel, levelSegmentedControl])
         
         NSLayoutConstraint.activate([
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -80,25 +94,20 @@ private extension SettingsViewController {
             levelSegmentedControl.topAnchor.constraint(equalTo: levelNameLabel.bottomAnchor, constant: 10),
 
         ])
-
-        saveSettingsButton.setTitle(NSLocalizedString("done", comment: ""), for: .normal)
-        saveSettingsButton.setTitleColor(.white, for: .normal)
-        saveSettingsButton.backgroundColor = .systemBlue
-        saveSettingsButton.layer.cornerRadius = 20
-        saveSettingsButton.addTarget(self, action: #selector(saveSettings), for: .touchUpInside)
-        
-        NSLayoutConstraint.activate([
-            saveSettingsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            saveSettingsButton.topAnchor.constraint(equalTo: levelSegmentedControl.bottomAnchor, constant: 20),
-            saveSettingsButton.widthAnchor.constraint(equalToConstant: 120),
-            saveSettingsButton.heightAnchor.constraint(equalToConstant: 40)
-        ])     
     }
+}
 
-    @objc func saveSettings() {
-        userDefaults.level = levelSegmentedControl.selectedSegmentIndex
+
+extension SettingsViewController: UITextFieldDelegate {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
         userDefaults.name = userNameTextField.text
-        navigationController?.popViewController(animated: true)
+        print("save name YEP")
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        tap()
+        return false
     }
 }
 
