@@ -7,23 +7,14 @@
 
 import Foundation
 
-
-//enum UserDefaultsKeys {
-//
-//
-//    static let name = "Name"
-//    static let level = "Level"
-//    static let gameScore = "score"
-//}
-
 class UserSettings {
-    @NameUserDefault(key: .name)
+    @UserDefault(key: .name)
     var name: String?
     
-    @LevelUserDefault(key: .level, defaultValue: 0)
+    @StrongUserDefault(key: .level, defaultValue: 0)
     var level: Int
     
-    @GameScoreUserDefault(key: .gameScore, defaultValue: 0)
+    @StrongUserDefault(key: .gameScore, defaultValue: 0)
     var gameScore: Int
     
     @TableLeadersDefault(key: .tableLeaders)
