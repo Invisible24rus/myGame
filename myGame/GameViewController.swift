@@ -58,7 +58,7 @@ private extension GameViewController {
         
         NSLayoutConstraint.activate([
             carImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            carImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -0),
+            carImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             carImage.widthAnchor.constraint(equalToConstant: view.bounds.maxX / 3),
             carImage.heightAnchor.constraint(equalToConstant: 150)
         ])
